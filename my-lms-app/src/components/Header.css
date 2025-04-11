@@ -1,0 +1,20 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #004080;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+}
+
+.navLink {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
