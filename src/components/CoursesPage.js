@@ -3,7 +3,6 @@ import Header from './Header';
 import Footer from './Footer';
 import CourseItem from './CourseItem';
 import EnrollmentList from './EnrollmentList';
-import courses from '../data/courses';
 
 const CoursesPage = () => {
   const [enrolledCourses, setEnrolledCourses] = useState(() => {
@@ -11,22 +10,59 @@ const CoursesPage = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [courses, setCourses] = useState([])
+  
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/courses')
+    .then((response) => response.json())
+    .then((data) => setCourses(data))
+    .catch((error) => console.error('Failed to fetch course list:', error));
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5000/student_courses/1`)
+    .then((response) => response.json())
+    .then((data) => setEnrolledCourses(data))
+    .catch((error) => console.error('Failed to fetch enrolled courses:', error));
+  }, []);
+
   // Save to localStorage
   useEffect(() => {
     localStorage.setItem('enrollments', JSON.stringify(enrolledCourses));
   }, [enrolledCourses]);
 
   const handleEnroll = (course) => {
-    setEnrolledCourses(prev => [...prev, { 
+    fetch(`http://127.0.0.1:5000/enroll/1`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({'course':course.id})
+    })
+    .then(response => response.json())
+    .then(() => setEnrolledCourses(prev => [...prev, { 
       ...course,
       enrollmentId: Date.now() // Unique ID for each enrollment
-    }]);
+    }]))
+    .catch(error => console.error('Error enrolling:', error));
   };
 
   const handleRemove = (enrollmentId) => {
-    setEnrolledCourses(prev => 
+    const enrollments = JSON.parse(localStorage.getItem('enrollments'));
+    var course_to_drop = null;
+    for (let course of enrollments) {
+      if (course['enrollmentId'] == enrollmentId) {
+        course_to_drop = course;
+      }
+    }
+
+    fetch(`http://127.0.0.1:5000/drop/1`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({'course':course_to_drop['id']})
+    })
+    .then(() => setEnrolledCourses(prev => 
       prev.filter(course => course.enrollmentId !== enrollmentId)
-    );
+    ))
+    .catch(error => console.error('Error dropping:', error));
   };
 
   return (
