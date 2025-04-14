@@ -10,7 +10,8 @@ const CoursesPage = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [courses, setCourses] = useState([])
+  const [courses, setCourses] = useState([]);
+  const signedIn = localStorage.getItem('student_id');
   
   useEffect(() => {
     fetch('http://127.0.0.1:5000/courses')
@@ -20,7 +21,7 @@ const CoursesPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/student_courses/1`)
+    fetch(`http://127.0.0.1:5000/student_courses/${signedIn}`)
     .then((response) => response.json())
     .then((data) => setEnrolledCourses(data))
     .catch((error) => console.error('Failed to fetch enrolled courses:', error));
@@ -32,7 +33,7 @@ const CoursesPage = () => {
   }, [enrolledCourses]);
 
   const handleEnroll = (course) => {
-    fetch(`http://127.0.0.1:5000/enroll/1`, {
+    fetch(`http://127.0.0.1:5000/enroll/${signedIn}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({'course':course.id})
@@ -54,7 +55,7 @@ const CoursesPage = () => {
       }
     }
 
-    fetch(`http://127.0.0.1:5000/drop/1`, {
+    fetch(`http://127.0.0.1:5000/drop/${signedIn}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({'course':course_to_drop['id']})
