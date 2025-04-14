@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import course1 from '../images/course1.jpg';
+import courseImg from '../images/course1.jpg';
 
 const CourseItem = ({ course, onEnroll }) => {
   const [showDescription, setShowDescription] = useState(false);
@@ -12,7 +12,7 @@ const CourseItem = ({ course, onEnroll }) => {
       transition: 'transform 0.2s',
     }}>
       <img
-        src={course.image}
+        src={courseImg}
         alt={course.name}
         style={{
           width: '100%',

@@ -5,7 +5,7 @@
         "instructor": "Dr. John Smith",
         "description": "Master HTML, CSS, and JavaScript.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 2,
@@ -13,7 +13,7 @@
         "instructor": "Dr. Emily Clark",
         "description": "Learn software design principles and methodologies.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 3,
@@ -21,7 +21,7 @@
         "instructor": "Dr. Michael Brown",
         "description": "Explore fundamental data structures and algorithms for efficient problem solving.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 4,
@@ -29,7 +29,7 @@
         "instructor": "Dr. Sarah Davis",
         "description": "Understand database design, SQL, and data management techniques.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {   
         "id": 5,
@@ -37,7 +37,7 @@
         "instructor": "Dr. Robert Wilson",
         "description": "Gain insight into networking protocols, architecture, and security.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 6,
@@ -45,7 +45,7 @@
         "instructor": "Dr. Lisa Taylor",
         "description": "Learn about process management, memory allocation, and system architecture.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 7,
@@ -53,7 +53,7 @@
         "instructor": "Dr. David Miller",
         "description": "Build and deploy mobile applications using modern frameworks.",
         "duration": "8 weeks",
-        "image": "images/course1.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 8,
@@ -61,7 +61,7 @@
         "instructor": "Dr. Anna Johnson",
         "description": "Introduction to AI, machine learning algorithms, and neural networks.",
         "duration": "8 weeks",
-        "image": "images/course2.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 9,
@@ -69,7 +69,7 @@
         "instructor": "Dr. Kevin Lee",
         "description": "Learn about threats, vulnerabilities, and strategies to secure systems.",
         "duration": "8 weeks",
-        "image": "images/course2.jpg"
+        "image": "../images/course1.jpg"
     },
     {
         "id": 10,
@@ -77,6 +77,6 @@
         "instructor": "Dr. Rebecca Martinez",
         "description": "Explore cloud services, deployment models, and modern infrastructure.",
         "duration": "8 weeks",
-        "image": "images/course2.jpg"
+        "image": "../images/course1.jpg"
     }  
 ]
