@@ -7,9 +7,8 @@ app = Flask(__name__)
 CORS(app)
 students = []
 
-# f = open('courses.json', 'r')
-# courses = json.load(f)
-# f.close()
+with open('src/backend/courses.json', 'r', encoding='UTF-8') as file:
+    courses = json.load(file)
 
 f = open('testimonials.json', 'r')
 testimonials = json.load(f)
@@ -18,11 +17,11 @@ f.close()
 def addStudent(username, password, email):
     studentId = len(students) + 1
     newStudent = {
-        "id": studentId,
+        "id": str(studentId),
         "username": username,
         "password": password,
         "email": email,
-        "enrolledCourses": []
+        "enrolled_courses": []
     }
     
     students.append(newStudent)
@@ -61,6 +60,38 @@ def getTestimonials():
     
     selected = random.sample(testimonials, 2)
     return jsonify(selected)
+
+@app.route("/enroll/<student_id>", methods=['GET','POST'])
+def enroll(student_id):
+    data = request.get_json()
+    course_to_enroll = [course for course in courses if course['id'] == data['course']]
+    for student in students:
+        if student['id'] == student_id:
+            student['enrolled_courses'] += course_to_enroll
+            return jsonify(data)
+    return jsonify({'error': 'Student not found'})
+
+@app.route("/drop/<student_id>", methods=['GET', 'DELETE'])
+def delete(student_id):
+    data = request.get_json()
+    course_to_drop = [course for course in courses if course['id'] == data['course']]
+    print(course_to_drop)
+    for student in students:
+        if student['id'] == student_id:
+            student['enrolled_courses'] = [course for course in student['enrolled_courses'] if course not in course_to_drop]
+            return jsonify(data)
+    return jsonify({'error': 'Student not found'})
+
+@app.route("/courses", methods=['GET'])
+def get_all():
+    return jsonify(courses)
+
+@app.route("/student_courses/<student_id>", methods=['GET'])
+def get_student(student_id):
+    for student in students:
+        if student['id'] == student_id:
+            return jsonify(student['enrolled_courses'])
+    return jsonify({'Error': 'Student not found'})
 
 if __name__ == '__main__':
     app.run()

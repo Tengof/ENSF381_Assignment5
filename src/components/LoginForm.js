@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import AuthMessage from './AuthMessage';
@@ -12,6 +12,10 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem('student_id', null);
+  }, []);
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -40,6 +44,7 @@ const LoginForm = () => {
       );
       const result = await response.json();
       if (result.success) {
+        localStorage.setItem('student_id', result.student['id']);
         login(result.student);
         setAuthMessage({ type: 'success', message: 'Login successful! Redirecting...' });
         setTimeout(() => { navigate('/courses'); }, 2000);
