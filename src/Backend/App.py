@@ -7,10 +7,10 @@ app = Flask(__name__)
 CORS(app)
 students = []
 
-with open('src/backend/courses.json', 'r', encoding='UTF-8') as file:
+with open('src/Backend/courses.json', 'r', encoding='UTF-8') as file:
     courses = json.load(file)
 
-f = open('testimonials.json', 'r')
+f = open('src/Backend/testimonials.json', 'r')
 testimonials = json.load(f)
 f.close()
 
